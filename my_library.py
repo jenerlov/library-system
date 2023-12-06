@@ -1,5 +1,5 @@
 
-class LibarySystem:
+class librarySystem:
     
     def __init__(self, name):
         self.name = name
@@ -8,13 +8,13 @@ class LibarySystem:
     # dictionary för att varje bok ska ha en tite och författare 
     # eftersom man kan ta bort ett specifikt värde med hjälp av key?
     
-    def add_book_to_libary(self, title, author):
+    def add_book_to_library(self, title, author):
         book = {'title': title, 'author': author, 'is_borrowed': False}
         self.books.append(book)   
         # print(f'{title} by {author} has been added to the {name}')
     
     # Använder title för att det är key som kan ta bort boken från listan
-    def delete_book_from_libary(self, title):
+    def delete_book_from_library(self, title):
         for book in self.books:
             if book['title'] == title:
                 self.books.remove(book)
@@ -32,7 +32,7 @@ class LibarySystem:
     def book_is_available(self, title):
         for book in self.books:
             if book['title'] == title and not book['is_borrowed']:
-                print(f'{self.books} is available at {self.name}')
+                print(f'{title} is available at {self.name}')
                 return
         
     
@@ -41,28 +41,15 @@ class LibarySystem:
         if available_books:
             print(f'These are all available books: {available_books}')
         else:
-            print(f'No available books in the libary')
+            print(f'No available books in the library')
             
 
 
-libary = LibarySystem('Josefins bibbla')
-libary.add_book_to_libary('Harry Potter', 'JK Rowling')
-libary.add_book_to_libary('Harry Potter 2', 'JK Rowling')
-libary.print_available_books()
-libary.book_is_available('Harry Potter 2')
-libary.book_is_not_available('Harry Potter')
-libary.book_is_available('Harry Potter')
-libary.print_available_books()
-
-
-
-
-
-
-
-
-
-
-    
-
-    
+library = librarySystem('Josefins bibbla')
+library.add_book_to_library('Harry Potter', 'JK Rowling')
+library.add_book_to_library('Hejdå', 'Hejhej')
+library.print_available_books()
+library.book_is_available('Harry Potter')
+library.book_is_not_available('Hejdå')
+library.book_is_available('Harry Potter')
+library.print_available_books()
