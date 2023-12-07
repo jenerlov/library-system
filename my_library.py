@@ -13,25 +13,22 @@ class LibrarySystem:
 
     def remove_book_from_library(self, title):
         updated_books = []
-        book_removed = False
-        
         for book in self.books:
             if book['title'] == title:
-                print(f'{title}  has been deleted from {self.name}')
-                book_removed = True
+                print(f'{title} has been deleted from {self.name}')
             else:
                 updated_books.append(book)
-        
-        if not book_removed:
+
+        if len(updated_books) == len(self.books):
             print(f'{title} not found in {self.name}')
-        
+
         self.books = updated_books
         
     def borrow_book(self, title):
         for book in self.books:
             if book['title'] == title:
                 if not book['is_borrowed']:
-                    book['is_borrowed'] = False
+                    book['is_borrowed'] = True
                     book['borrowed_date'] = datetime.datetime.now()
                     print(f'{title} has been borrowed')
                     return
@@ -66,20 +63,21 @@ class LibrarySystem:
         return overdue_days
 
         
-    def book_is_not_available(self, title):
-        for book in self.books:
-                if book ['title'] == title and book['is_borrowed']:
-                    print(f'{title} is currently not available')
-                    return
     
-    #Metod för om boken FINNS
+    #Metod för om boken FINNS i bibblo
     def book_is_available(self, title):
         for book in self.books:
             if book['title'] == title and not book['is_borrowed']:
                 print(f'{title} is available at {self.name}')
                 return
+            
+    def book_is_not_available(self, title):
+        for book in self.books:
+                if book ['title'] == title and book['is_borrowed']:
+                    print(f'{title} is currently not available')
+                    return
         
-    
+    # Printa ut alla tillgängliga böcker som finns i bibblan
     def print_available_books(self):
         available_books = [book['title'] for book in self.books if not book['is_borrowed']]
         if available_books:
@@ -89,14 +87,13 @@ class LibrarySystem:
             
 
 
-library = LibrarySystem('Josefins bibbla')
-library.add_book_to_library('Harry Potter', 'JK Rowling')
-library.add_book_to_library('Röda Rummet', 'August Strindberg')
-library.print_available_books()
+# instanser
+my_library = LibrarySystem('Josefins bibbla')
+my_library.add_book_to_library('Harry Potter', 'JK Rowling')
+my_library.add_book_to_library('Röda Rummet', 'August Strindberg')
 
-library.remove_book_from_library('Röda Rummet')
-library.print_available_books()
+my_library.remove_book_from_library('Röda Rummet')
+my_library.print_available_books()
 
-
-library.return_book('Harry Potter')
-library.print_available_books()
+my_library.return_book('Harry Potter')
+my_library.print_available_books()
