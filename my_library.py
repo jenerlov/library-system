@@ -66,16 +66,25 @@ class LibrarySystem:
     
     #Metod för om boken FINNS i bibblo
     def book_is_available(self, title):
-        for book in self.books:
-            if book['title'] == title and not book['is_borrowed']:
-                print(f'{title} is available at {self.name}')
-                return
+        if title in self.books:
+            if not self.books[title]['is_borrowed']:
+                print(f'Book {title} is available')
+                return True
+            else:
+                print(f'{title} is not available')
+                return False
+        else:
+            print(f'{title} does not exist in Josefins Bibbla')
+            return False
             
-    def book_is_not_available(self, title):
-        for book in self.books:
-                if book ['title'] == title and book['is_borrowed']:
-                    print(f'{title} is currently not available')
-                    return
+    
+    # def book_is_not_available(self, title):        
+    #     for book in self.books:
+    #             if not book ['title'] == title and book['is_borrowed']:
+    #                 print(f'{title} is currently not available')
+    #                 return
+    #             else:
+    #                 print(f'Book titled {title} does not exist')
         
     # Printa ut alla tillgängliga böcker som finns i bibblan
     def print_available_books(self):
@@ -88,9 +97,11 @@ class LibrarySystem:
 
 
 # instanser
+print('\n') # radbrytning
 my_library = LibrarySystem('Josefins bibbla')
 my_library.add_book_to_library('Harry Potter', 'JK Rowling')
 my_library.add_book_to_library('Röda Rummet', 'August Strindberg')
+my_library.add_book_to_library('Sagan Om Ringen', 'J.R.R Tolkien')
 
 my_library.remove_book_from_library('Röda Rummet')
 my_library.print_available_books()
